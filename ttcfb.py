@@ -696,7 +696,10 @@ while True:
             except:
                 pass
                 result += rgb_to_ansi(r, g, b) + char
-                return result + "\033[0m"
+        # Phải có một hàm chứa lệnh return
+def check_result(result):
+    # Lệnh return phải được lùi vào
+    return result + "\033[0m"
     def gradient_tutu(text):
         def rgb_to_ansi(r, g, b):
             return f"\033[38;2;{r};{g};{b}m"
