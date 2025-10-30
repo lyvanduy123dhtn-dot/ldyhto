@@ -17,8 +17,6 @@ def slow_type(text, delay=0.05):
         time.sleep(delay)
     print()
 
-def banner():
-
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
