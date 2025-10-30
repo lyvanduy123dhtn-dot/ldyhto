@@ -697,7 +697,7 @@ while True:
             except:
                 pass
         result += rgb_to_ansi(r, g, b) + char
-    return result + "\033[0m"
+ return result + "\033[0m"
     
 def gradient_tutu(text):
     def rgb_to_ansi(r, g, b):
