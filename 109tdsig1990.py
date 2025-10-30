@@ -1,3 +1,4 @@
+
 from weakref import proxy
 import requests
 from time import sleep
@@ -15,18 +16,12 @@ Blue="\033[0;34m"         # Blue
 Purple="\033[0;35m"       # Purple
 Cyan="\033[0;36m"         # Cyan
 White="\033[0;37m"
-
-# =========================================================================
-# 1. PHẦN HIỆU ỨNG TIÊU ĐỀ
-# Đổi màu tiêu đề từ red_to_blue sang white_to_purple
 text = '''
 TOOL TDS Instagram
            HÃY BẤM XUỐNG DÒNG
-'''
-Anime.Fade(Center.Center(text), Colors.white_to_purple, Colorate.Vertical, enter = True)	
-Write.Print('========================================================= \n',Colors.white_to_purple,interval=0.0001)
-# =========================================================================
-
+'''''
+Anime.Fade(Center.Center(text), Colors.red_to_blue, Colorate.Vertical, enter = True)	
+Write.Print('========================================================= \n',Colors.cyan_to_blue,interval=0.0001)
 # key1=input(f'{Cyan}Vui lòng nhập key: {Red}')
 tmp1 = open('ua.txt','a+')
 tmp1.close()
@@ -65,31 +60,28 @@ def safe_get_json(url):
             return res.json()
         else:
             if not silent_mode:
-                print(f"{Red}[!] LỖI khi lấy dữ liệu từ: {url}")
+                print(f"[!] LỖI khi lấy dữ liệu từ: {url}")
                 print(f"[!] Status Code: {res.status_code}, Nội dung: {res.text[:100]}")
             return {}
     except requests.exceptions.JSONDecodeError:
         if not silent_mode:
-            print(f"{Red}[!] JSONDecodeError: Dữ liệu không hợp lệ từ {url}")
+            print(f"[!] JSONDecodeError: Dữ liệu không hợp lệ từ {url}")
     except Exception as e:
         if not silent_mode:
-            print(f"{Red}[!] Lỗi khi kết nối tới {url} ➤ {e}")
+            print(f"[!] Lỗi khi kết nối tới {url} ➤ {e}")
     return {}
 
-# =========================================================================
-# 2. PHẦN ĐĂNG NHẬP TDS
-# Chuyển màu các lựa chọn và thông báo sang White/Purple
 while True:
     tokenn = load_token()
     if tokenn:
-        print(f'{White}[=.=] => Nhập [1] Giữ Lại Tài Khoản TDS đã lưu')
-        print(f'{White}[=.=] => Nhập [2] Nhập Access_Token TDS Mới')
-        opt = input(f'{White}[=.=] => Nhập ===>: {Red}') # Giữ Red cho input để nổi bật
+        print(f'{Yellow}[=.=] => Nhập [1] Giữ Lại Tài Khoản TDS đã lưu')
+        print(f'{Yellow}[=.=] => Nhập [2] Nhập Access_Token TDS Mới')
+        opt = input(f'{Yellow}[=.=] => Nhập ===>: {Red}')
         if opt == '2':
-            tokenn = input(f'{White}NHẬP TOKEN TRAODOISUB MỚI:{Red} ')
+            tokenn = input(f'{Cyan}NHẬP TOKEN TRAODOISUB MỚI:{Red} ')
             save_token(tokenn)
     else:
-        tokenn = input(f'{White}NHẬP TOKEN TRAODOISUB:{Red} ')
+        tokenn = input(f'{Cyan}NHẬP TOKEN TRAODOISUB:{Red} ')
         save_token(tokenn)
 
     login = safe_get_json(f'https://traodoisub.com/api/?fields=profile&access_token={tokenn}')
@@ -99,59 +91,48 @@ while True:
         print(f'{Purple}➤ ĐĂNG NHẬP TDS THÀNH CÔNG')
         break
     else:
-        print(f'{Red}➤ Sai TOKEN!')
+        print(f'{Purple}➤ Sai TOKEN!')
         sleep(1)
 
-# =========================================================================
-# 3. PHẦN NHẬP COOKIE
-# Chuyển màu các lựa chọn sang White/Red
-print(f'\n{White}1. Nhập cookie thủ công ')
-print(f'{White}2. Nhập cookie đọc file .txt  ')
-a=input(f'{White}Nhập lựa chọn của bạn: {Red}')
+print(f'\n{Cyan}1. Nhập cookie thủ công ')
+print(f'{Cyan}2. Nhập cookie đọc file .txt  ')
+a=input(f'{Cyan}Nhập lựa chọn của bạn: {Red}')
 if(a=='1'):
     i=1
-    cookieig=input(f'\n{White}Nhập cookie thứ {i}: {Red}')
+    cookieig=input(f'\n{Cyan}Nhập cookie thứ {i}: {Red}')
     list_acc.append(cookieig)
     while len(cookieig)>1:
         i=i+1
-        cookieig=input(f'\n{White}Nhập cookie thứ {i}: {Red}')
+        cookieig=input(f'\n{Cyan}Nhập cookie thứ {i}: {Red}')
         list_acc.append(cookieig)
         break
 if(a=='2'):
-    file = input(f'{White}Nhập tên file cần đọc cookie {Yellow}(mỗi cookie 1 dòng): {Red}')
+    file = input(f'{Cyan}Nhập tên file cần đọc cookie {Yellow}(mỗi cookie 1 dòng): {Red}')
     file =  open(f'{file}')
     read_ck = file.readlines()
     for ck in read_ck:
         cookieig = ck.split('\n')[0]
         list_acc.append(cookieig)
 clear_terminal()
-
-# =========================================================================
-# 4. PHẦN CẤU HÌNH NHIỆM VỤ VÀ DELAY
-# Chuyển màu các lựa chọn sang White/Red
-checkfl=input(f'{White}Có làm nhiệm vụ {Red}follow{White} không (on/off): {Red}')
+checkfl=input(f'{Cyan}Có làm nhiệm vụ {Red}follow{Cyan} không (on/off): {Red}')
 if(checkfl=='on'):
-    sofl=input(f'{White}Nhập số follow/ 1 acc: {Red}')
+    sofl=input(f'{Cyan}Nhập số follow/ 1 acc: {Red}')
     sofl=int(sofl)
-    delayfl=input(f'{White}Nhập delay follow: {Red}')
-checklike=input(f'{White}Có làm nhiệm vụ {Red}like{White} không (on/off): {Red}')
+    delayfl=input(f'{Cyan}Nhập delay follow: {Red}')
+checklike=input(f'{Cyan}Có làm nhiệm vụ {Red}like{Cyan} không (on/off): {Red}')
 if(checklike=='on'):
-    solike=input(f'{White}Nhập số like/1 acc: {Red}')
+    solike=input(f'{Cyan}Nhập số like/1 acc: {Red}')
     solike=int(solike)
-    delaylike=input(f'{White}Nhap delay like: {Red}')
-chuyenacc=input(f'{White}Nhập thời gian chuyển acc: {Red}')
+    delaylike=input(f'{Cyan}Nhap delay like: {Red}')
+chuyenacc=input(f'{Cyan}Nhập thời gian chuyển acc: {Red}')
 chuyenacc=int(chuyenacc)
 clear_terminal()
-
-# =========================================================================
-# 5. PHẦN CẤU HÌNH PROXY
-# Chuyển màu các lựa chọn sang White/Red
-ghj=input(f'{White}Có sử dụng {Red}proxy{White} không (on/off): {Red}')
+ghj=input(f'{Cyan}Có sử dụng {Red}proxy{Cyan} không (on/off): {Red}')
 list_proxie=[]
 if ghj=='on':
-    print(f'{White}File proxy sẽ có định dạng {Red}[Tên proxy].txt')
-    print(f'{Red}HOST:PORT {White}hoặc {Red}USER:PASS@HOST:PORT')
-    tenproxy= input(f'{White}Nhập tên file chứa proxy {Yellow}(mỗi proxy 1 dòng sẽ tự random proxy/ 1 acc): {Red}')
+    print(f'{Cyan}File proxy sẽ có định dạng {Red}[Tên proxy].txt')
+    print(f'{Red}HOST:PORT {Cyan}hoặc {Red}USER:PASS@HOST:PORT')
+    tenproxy= input(f'{Cyan}Nhập tên file chứa proxy {Yellow}(mỗi proxy 1 dòng sẽ tự random proxy/ 1 acc): {Red}')
     tmp3=open(f'{tenproxy}', 'a+')
     tmp3.close()
     file2 =  open(f'{tenproxy}')
@@ -160,15 +141,11 @@ if ghj=='on':
         proxii = pro.split('\n')[0]
         list_proxie.append(proxii)
 clear_terminal()
-
-# =========================================================================
-# 6. PHẦN SUMMARY VÀ THÔNG TIN CHUNG
-# Chuyển màu thông tin Summary sang White/Purple
 print(f'{Defaut}#===========================================================#')
-print(f'{Defaut}》   {White}Username: {Purple}{name}') 
-print(f'{Defaut}》   {White}Accountnumber: {Purple}{len(list_acc)}')
-print(f'{Defaut}》   {White}Coin: {Purple}{xu}')
-print(f'{Defaut}》   {White}Version: {Purple}0.1')
+print(f'{Defaut}》   {Purple}Username: {Red}{name}') 
+print(f'{Defaut}》   {Purple}Accountnumber: {Red}{len(list_acc)}')
+print(f'{Defaut}》   {Purple}Coin: {Red}{xu}')
+print(f'{Defaut}》   {Purple}Version: {Red}0.1')
 print(f'{Defaut}#===========================================================#')
 sleep(0.5)
 #=======================================================================================
@@ -214,7 +191,7 @@ def apifl1(cookies,idfl,uafake,proxie):
             return fl1
             break
         except:
-            print(f'{Yellow}CÓ LỖI XÃY RA!!! Vui lòng chờ 5s. [001]', end='\r')
+            print(f'CÓ LỖI XÃY RA!!!   Vui lòng chờ 5s. [001]', end='\r')
             sleep(5)
             print('                                              ', end='\r')
 def apifl2(cookies,idfl,uafake):
@@ -253,7 +230,7 @@ def apifl2(cookies,idfl,uafake):
             return fl1
             break
         except:
-            print(f'{Yellow}CÓ LỖI XÃY RA!!! Vui lòng chờ 5s. [001]', end='\r')
+            print(f'CÓ LỖI XÃY RA!!!   Vui lòng chờ 5s. [001]', end='\r')
             sleep(5)
             print('                                              ', end='\r')
 def apilike1(cookies,idlike,uafake,link,proxie):
@@ -299,7 +276,7 @@ def apilike1(cookies,idlike,uafake,link,proxie):
                         print(f'{Red}FAIL ❌')
                 break
             except:
-                print(f'{Yellow}CÓ LỖI XÃY RA!!! Vui lòng chờ 5s. [002]', end='\r')
+                print(f'CÓ LỖI XÃY RA!!!   Vui lòng chờ 5s.  [002]', end='\r')
                 sleep(5)
                 print('                                              ', end='\r')
                 e=e+1
@@ -344,16 +321,13 @@ def apilike2(cookies,idlike,uafake,link):
                         print(f'{Red}FAIL ❌')
                 break
             except:
-                print(f'{Yellow}CÓ LỖI XÃY RA!!! Vui lòng chờ 5s. [002]', end='\r')
+                print(f'CÓ LỖI XÃY RA!!!   Vui lòng chờ 5s.  [002]', end='\r')
                 sleep(5)
                 print('                                              ', end='\r')
                 e=e+1
                 if(e==3):
                     break
 print('\n')
-
-# =========================================================================
-# 7. PHẦN CHẠY NHIỆM VỤ (HÀM job())
 def job():
     x=0
     accthu=0
@@ -416,7 +390,7 @@ def job():
                         user = userig.split('"')[2].split("\\")[0]
                         break
                 except:
-                    print(f'{Yellow}CÓ LỖI XÃY RA!!! Vui lòng chờ 5s. ', end='\r')
+                    print(f'CÓ LỖI XÃY RA!!!   Vui lòng chờ 5s. ', end='\r')
                     sleep(5)
                     print('                                              ', end='\r')
             if(checkdie=='no-js'):
@@ -427,17 +401,16 @@ def job():
                     try:
                         cauhinh = safe_get_json(f'https://traodoisub.com/api/?fields=instagram_run&id={ds_user_id}&access_token={tokenn}')
                         if 'success' in cauhinh:
-                            # Màu Cấu Hình ID: White > Purple
-                            print(f'{White}➤ ACCOUNT NUMER {accthu} {Red}<> {White}Cấu Hình ID: {Purple}{user} {White}Thành Công' )
+                            print(f'{Purple}➤ ACCOUNT NUMER {accthu} {Red}<> {Purple}Cấu Hình ID: {Red}{user} {Purple}Thành Công' )
                             break
                         else:
                             check=check+1
-                            print(f'{White}➤ ACCOUNT NUMER {accthu} {Red}<> {White}Cấu Hình ID: {Purple}{user} {Red}Thất Bại!' )
+                            print(f'{Purple}➤ ACCOUNT NUMER {accthu} {Red}<> {Purple}Cấu Hình ID: {Red}{user} {Purple}Thất Bại!' )
                             sleep(10)
                             if(check==3):
                                 break
                     except:
-                        print(f'{Yellow}CÓ LỖI XÃY RA!!!0 Vui lòng chờ 5s. ', end='\r')
+                        print(f'CÓ LỖI XÃY RA!!!0   Vui lòng chờ 5s. ', end='\r')
                         sleep(5)
                         print('                                              ', end='\r')
             if(check==3):
@@ -473,8 +446,7 @@ def job():
                                 gio=hnay.hour
                                 phut=hnay.minute
                                 giay=hnay.second
-                                # Màu Log FOLLOW: Yellow (STT) - White (Giờ/Loại) - Purple (ID)
-                                print(f'   {Red}[{Yellow}{x}{Red}] [{White}{gio}:{phut}:{giay}{Red}] [{White}FOLLOW{Red}] [{Purple}{idfl}{Red}] ', end='')
+                                print(f'   {Red}[{Yellow}{x}{Red}] [{Yellow}{gio}:{phut}:{giay}{Red}] [{Yellow}FOLLOW{Red}] [{Yellow}{idfl}{Red}] ', end='')
                                 if ghj == 'on':
                                     jjj = apifl1(Cookie, idfl, uafake, proxie)
                                 else:
@@ -504,8 +476,7 @@ def job():
                                 if duyet.get('data') and isinstance(duyet['data'], dict):
                                     nhan = duyet['data'].get('msg', 'Không xác định')
                                     tong = duyet['data'].get('pending', 0)
-                                    # Màu Nhận/Đợi Duyệt: White (Nhận) - Purple (Đợi Duyệt)
-                                    print(f"{White}➤ NHẬN: {nhan} {Red}<> {Purple}ĐỢI DUYỆT: {tong}")
+                                    print(f"{Green}➤ NHẬN: {nhan} <> ĐỢI DUYỆT: {tong}")
                                 else:
                                     if not silent_mode:
                                         print(f"{Red}➤ LỖI: Không thể nhận dữ liệu từ server khi duyệt nhiệm vụ!")
@@ -513,7 +484,7 @@ def job():
                                     nhan = 'Không xác định'
                                     tong = 0
 
-                                # Màu Delay: Red/White/Green
+
                                 for i in range(int(delayfl),-1,-1):
                                     print(f'{Red}[C25]{Red}[{White}{str(i)}{Red}]  {Green}SLEEP {Red}[{White}|{Red}] ', end='\r')
                                     sleep(0.2)
@@ -530,7 +501,6 @@ def job():
                             if(jjj==0 or kkk==sofl):
                                 try:
                                     sodu=demfl*800
-                                    # Màu Tóm Tắt Job FOLLOW: Purple > Red > Purple > Red
                                     print(f'{Purple}➤ ĐÃ XONG JOB FOLLOW {Red}<> {Purple}NHẬN ĐƯỢC {Red}{sodu} COIN {Red}<> {Purple}ĐỢI DUYỆT {Red}{tong}')
                                 except:
                                     pass
@@ -542,7 +512,6 @@ def job():
                             if(demfl >=1 ):
                                 try:
                                     sodu=demfl*800
-                                    # Màu Tóm Tắt Job FOLLOW: Purple > Red > Purple > Red
                                     print(f'{Purple}➤ ĐÃ XONG JOB FOLLOW {Red}<> {Purple}NHẬN ĐƯỢC {Red}{sodu} COIN {Red}<> {Purple}ĐỢI DUYỆT {Red}{tong}')
                                 except:
                                     pass
@@ -582,8 +551,7 @@ def job():
                                 gio=hnay.hour
                                 phut=hnay.minute
                                 giay=hnay.second
-                                # Màu Log LIKE: Yellow (STT) - White (Giờ/Loại) - Purple (ID)
-                                print(f'   {Red}[{Yellow}{x}{Red}] [{White}{gio}:{phut}:{giay}{Red}] [{White}LIKE{Red}] [{Purple}{idjob}{Red}] ', end='')
+                                print(f'   {Red}[{Yellow}{x}{Red}] [{Yellow}{gio}:{phut}:{giay}{Red}] [{Yellow}LIKE{Red}] [{Yellow}{idjob}{Red}] ', end='')
                                 if ghj=='on':
                                     lll=apilike1(Cookie,idjob,uafake,link,proxie)
                                 else :
@@ -597,19 +565,13 @@ def job():
                                     # Gửi yêu cầu nhận xu chính thức
                                     nhanxu = safe_get_json(f'https://traodoisub.com/api/coin/?type=INS_LIKE&id={idlike}&access_token={tokenn}')
                                     if not silent_mode:
-                                        print(f"{White}➤ Đã gửi nhận xu: {nhanxu}")
-                                    
-                                    # Màu Nhận/Đợi Duyệt: White (Nhận) - Purple (Đợi Duyệt) - Thêm dòng này để cập nhật lại log
-                                    if 'success' in nhanxu:
-                                        print(f"{White}➤ NHẬN: {nhan} {Red}<> {Purple}ĐỢI DUYỆT: {tong}")
-
+                                        print(f"{Green}➤ Đã gửi nhận xu: {nhanxu}")
 
                                 while 'error' in duyet and not silent_mode:
                                     duyet = safe_get_json(f'https://traodoisub.com/api/coin/?type=INS_LIKE_CACHE&id={idlike}&access_token={tokenn}')
                                     if('success' in duyet):
                                         break
                                 
-                                # Màu Delay: Red/White/Green (Giữ nguyên)
                                 for i in range(int(delaylike),-1,-1):
                                     print(f'{Red}[{Green}H{Yellow}D{Blue}T-{Purple}T{Green}O{Yellow}O{Blue}L{Red}]{Red}[{White}{str(i)}{Red}]  {Green}SLEEP {Red}[{White}|{Red}] ',end='\r')
                                     sleep(0.2)
@@ -626,7 +588,6 @@ def job():
                             if(lll==0 or ooo==solike):
                                 try:
                                     sodu=demlike*500
-                                    # Màu Tóm Tắt Job LIKE: Purple > Red > Purple > Red
                                     print(f'{Purple}➤ ĐÃ XONG JOB LIKE {Red}<> {Purple}NHẬN ĐƯỢC {Red}{sodu} COIN {Red}<> {Purple}ĐỢI DUYỆT {Red}{tong}')
                                 except:
                                     pass
@@ -639,7 +600,6 @@ def job():
                             if(demlike>=1):
                                 try:
                                     sodu=demlike*500
-                                    # Màu Tóm Tắt Job LIKE: Purple > Red > Purple > Red
                                     print(f'{Purple}➤ ĐÃ XONG JOB LIKE {Red}<> {Purple}NHẬN ĐƯỢC {Red}{sodu} COIN {Red}<> {Purple}ĐỢI DUYỆT {Red}{tong}')
                                 except:
                                     pass
@@ -647,15 +607,14 @@ def job():
                             continue
             if(x1==1 or x2==1): 
                 print('Chuyen acc sau',chuyenacc, 'giay:')
-                # Màu Chuyển Acc: White/Red
                 for i in range(chuyenacc, -1, -1):
-                    print(f'{White}Please wait after {Red}{i} •   ', end='\r')
+                    print(f'Please wait after {i} •   ', end='\r')
                     sleep(0.25)
-                    print(f'{White}Please wait after {Red}{i} ••    ', end='\r')
+                    print(f'Please wait after {i} ••    ', end='\r')
                     sleep(0.25)
-                    print(f'{White}Please wait after {Red}{i} •••   ', end='\r')
+                    print(f'Please wait after {i} •••   ', end='\r')
                     sleep(0.25)
-                    print(f'{White}Please wait after {Red}{i} ••••    ', end='\r')
+                    print(f'Please wait after {i} ••••    ', end='\r')
                     sleep(0.25)
                     print('                                                  ', end='\r')
 job()
