@@ -699,9 +699,8 @@ while True:
                 return 
                 result + "\033[0m"
     def gradient_tutu(text):
-    def rgb_to_ansi(r, g, b):
-        return f"\033[38;2;{r};{g};{b}m"
-
+        def rgb_to_ansi(r, g, b):
+            return f"\033[38;2;{r};{g};{b}m"
     start_color = (255, 192, 203)  # 🌸 Hồng phấn
     mid_color   = (152, 251, 152)  # 🌿 Mint nhạt
     end_color   = (255, 255, 102)  # 💛 Vàng chanh pastel
