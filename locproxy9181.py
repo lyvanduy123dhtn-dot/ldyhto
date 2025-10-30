@@ -18,8 +18,6 @@ def slow_type(text, delay=0.05):
     print()
 
 def banner():
-    slow_type("""
-
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
