@@ -718,8 +718,8 @@ while True:
             b = int(mid_color[2] + (end_color[2] - mid_color[2]) * t2)
 
         result += rgb_to_ansi(r, g, b) + char
-
-    return result + "\033[0m"
+        def check_result(result):
+            return result + "\033[0m"
     
 def gradient(text, start_color=(255, 0, 255), end_color=(0, 255, 255)):
     result = ""
